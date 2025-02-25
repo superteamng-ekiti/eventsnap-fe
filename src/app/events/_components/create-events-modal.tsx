@@ -34,10 +34,10 @@ export const CreateEventsModal = () => {
     }
 
     mutate(formData, {
-      onSuccess: (data) => {
+      onSuccess: (data: any) => {
         console.log('Upload success:', data)
       },
-      onError: (error) => {
+      onError: (error: any) => {
         console.error('Upload error:', error)
       },
       // headers: {
