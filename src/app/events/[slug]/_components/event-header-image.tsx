@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 import { ShareInviteLink } from "./share-invite-link";
-import { IoFilter } from "react-icons/io5";
+
+import { ListFilter } from "lucide-react";
 
 const images = [
   { src: "/images/Ellipse-1.png", alt: "Image 1" },
@@ -64,7 +65,7 @@ export const EventHeaderImage = () => {
               />
             </div>
           ))}
-          <IoFilter className="w-5 h-5" />
+          <ListFilter className="w-5 h-5" />
         </div>
       </div>
 

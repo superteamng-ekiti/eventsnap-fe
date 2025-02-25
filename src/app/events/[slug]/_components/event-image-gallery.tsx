@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { FaDownload, FaShare, FaTrash } from "react-icons/fa";
+import { Download, Forward, Trash } from "lucide-react";
 
 interface GalleryImage {
   src: string;
@@ -21,7 +21,6 @@ export const EventImageGallery = () => {
   const downloadImage = (src: string) => {
     const link = document.createElement("a");
     link.href = src;
-    // Derive a filename from the URL (or use a default)
     const fileName = src.split("/").pop() || "downloaded-image.jpg";
     link.download = fileName;
     document.body.appendChild(link);
@@ -43,7 +42,7 @@ export const EventImageGallery = () => {
     window.open(twitterUrl, "_blank");
   };
 
-  // For the layout, we assume:
+  // For the layout:
   // - Left Column: galleryImages[0]
   // - Middle Column: galleryImages[1] and galleryImages[2] (stacked vertically)
   // - Right Column: galleryImages[3]
@@ -70,19 +69,19 @@ export const EventImageGallery = () => {
                 onClick={() => downloadImage(img1.src)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <FaDownload size={10} />
+                <Download size={10} />
               </button>
               <button
                 onClick={() => shareImage(img1.src)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <FaShare size={10} />
+                <Forward size={10} />
               </button>
               <button
                 onClick={() => deleteImage(img1.alt)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <FaTrash size={10} />
+                <Trash size={10} />
               </button>
             </div>
           </div>
@@ -103,19 +102,19 @@ export const EventImageGallery = () => {
                   onClick={() => downloadImage(img2.src)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <FaDownload size={10} />
+                  <Download size={10} />
                 </button>
                 <button
                   onClick={() => shareImage(img2.src)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <FaShare size={10} />
+                  <Forward size={10} />
                 </button>
                 <button
                   onClick={() => deleteImage(img2.alt)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <FaTrash size={10} />
+                  <Trash size={10} />
                 </button>
               </div>
             </div>
@@ -133,19 +132,19 @@ export const EventImageGallery = () => {
                   onClick={() => downloadImage(img3.src)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <FaDownload size={10} />
+                  <Download size={10} />
                 </button>
                 <button
                   onClick={() => shareImage(img3.src)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <FaShare size={10} />
+                  <Forward size={10} />
                 </button>
                 <button
                   onClick={() => deleteImage(img3.alt)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <FaTrash size={10} />
+                  <Trash size={10} />
                 </button>
               </div>
             </div>
@@ -166,19 +165,19 @@ export const EventImageGallery = () => {
                 onClick={() => downloadImage(img4.src)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <FaDownload size={10} />
+                <Download size={10} />
               </button>
               <button
                 onClick={() => shareImage(img4.src)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <FaShare size={10} />
+                <Forward size={10} />
               </button>
               <button
                 onClick={() => deleteImage(img4.alt)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <FaTrash size={10} />
+                <Trash size={10} />
               </button>
             </div>
           </div>
