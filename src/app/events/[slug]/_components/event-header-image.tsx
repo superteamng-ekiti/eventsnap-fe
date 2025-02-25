@@ -52,71 +52,18 @@ export const EventImageGallery = () => {
   const img4 = galleryImages[3];
 
   return (
-    <div className="w-full mt-4">
-      <div className="grid grid-cols-3 gap-4">
-        {/* Left Column: Image 1 */}
-        {img1 && (
-          <div className="relative h-[300px] rounded-xl overflow-hidden group">
-            <Image
-              src={img1.src}
-              alt={img1.alt}
-              fill
-              style={{ objectFit: "cover" }}
-            />
-            {/* Vertical Icons on the right */}
-            <div className="absolute top-2 right-2 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <button
-                onClick={() => downloadImage(img1.src)}
-                className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
-              >
-                <Download size={10} />
-              </button>
-              <button
-                onClick={() => shareImage(img1.src)}
-                className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
-              >
-                <Share2 size={10} />
-              </button>
-              <button
-                onClick={() => deleteImage(img1.alt)}
-                className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
-              >
-                <Trash size={10} />
-              </button>
-            </div>
-          </div>
-        )}
+    <div className='w-full h-[180px] relative rounded-xl overflow-hidden'>
+        <Image src="/images/event-header-image.jpg" alt="event header image" fill className='object-cover' />
 
-        {/* Middle Column: Images 2 and 3 stacked vertically */}
-        <div className="flex flex-col gap-4">
-          {img2 && (
-            <div className="relative h-[150px] rounded-xl overflow-hidden group">
-              <Image
-                src={img2.src}
-                alt={img2.alt}
-                fill
-                style={{ objectFit: "cover" }}
-              />
-              <div className="absolute top-2 right-2 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button
-                  onClick={() => downloadImage(img2.src)}
-                  className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
-                >
-                  <Download size={10} />
-                </button>
-                <button
-                  onClick={() => shareImage(img2.src)}
-                  className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
-                >
-                  <Share2 size={10} />
-                </button>
-                <button
-                  onClick={() => deleteImage(img2.alt)}
-                  className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
-                >
-                  <Trash size={10} />
-                </button>
-              </div>
+        <div className='absolute top-0 left-0 w-full h-full bg-black/25' />
+
+        <div className='absolute top-0 left-0 w-full h-full flex items-end justify-between px-10 pb-4'>
+            <div className='flex flex-col gap-0'>
+                <h3 className={`text-white text-2xl ${recoletaBold.className}`}>Youth Hangout</h3>
+                <div className='flex items-center gap-2'>
+                    <Image src="/images/location-white.svg" alt="location" width={24} height={24} />
+                    <p className='text-[#B1B1B1] text-sm'>Lagos, Nigeria</p>
+                </div>
             </div>
           )}
           {img3 && (
