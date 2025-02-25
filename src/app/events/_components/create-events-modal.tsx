@@ -25,25 +25,25 @@ export const CreateEventsModal = () => {
   const { mutate, status } = useUploadImage();
 
   const uploadImage = async (file: File) => {
-    const formData = new FormData()
-    formData.append("image", file, file.name)
-    
-    console.log('FormData contents:')
+    const formData = new FormData();
+    formData.append("image", file, file.name);
+
+    console.log("FormData contents:");
     for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1])
+      console.log(pair[0], pair[1]);
     }
 
     mutate(formData, {
-      onSuccess: (data) => {
-        console.log('Upload success:', data)
+      onSuccess: (data: any) => {
+        console.log("Upload success:", data);
       },
-      onError: (error) => {
-        console.error('Upload error:', error)
+      onError: (error: any) => {
+        console.error("Upload error:", error);
       },
       // headers: {
       //   'Content-Type': 'multipart/form-data',
       // }
-    })
+    });
   };
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -108,7 +108,9 @@ export const CreateEventsModal = () => {
         <DialogFooter>
           <Button
             size="sm"
-            disabled={!name || files.length === 0 || loading || status === "pending"}
+            disabled={
+              !name || files.length === 0 || loading || status === "pending"
+            }
             onClick={handleSave}
           >
             {loading ? "Creating..." : "Create Event"}
