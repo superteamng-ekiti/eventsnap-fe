@@ -22,28 +22,10 @@ export const CreateEventsModal = () => {
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { mutate, status } = useUploadImage();
+  const { uploadImage: mutateUploadImage, isLoading: isUploading } = useUploadImage();
 
   const uploadImage = async (file: File) => {
-    const formData = new FormData()
-    formData.append("image", file, file.name)
-    
-    console.log('FormData contents:')
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1])
-    }
-
-    mutate(formData, {
-      onSuccess: (data: any) => {
-        console.log('Upload success:', data)
-      },
-      onError: (error: any) => {
-        console.error('Upload error:', error)
-      },
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // }
-    })
+    mutateUploadImage([file])
   };
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -70,8 +52,6 @@ export const CreateEventsModal = () => {
     // TODO: REFRESH THE EVENTS LIST
   };
 
-  console.log("files", files);
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -89,7 +69,7 @@ export const CreateEventsModal = () => {
         </DialogHeader>
         <div className="flex flex-col gap-4 py-4">
           <div className="flex flex-col gap-4">
-            <Label>Event Name</Label>
+            <Label>What’s the name of your event?</Label>
             <Input
               placeholder="Event Name"
               value={name}
@@ -99,7 +79,6 @@ export const CreateEventsModal = () => {
 
           <ImageUploader
             multiple={false}
-            maxSize={5}
             allowedTypes={["image/jpeg", "image/png"]}
             files={files}
             onFilesChange={setFiles}
@@ -108,10 +87,10 @@ export const CreateEventsModal = () => {
         <DialogFooter>
           <Button
             size="sm"
-            disabled={!name || files.length === 0 || loading || status === "pending"}
+            disabled={!name || files.length === 0 || loading || isUploading}
             onClick={handleSave}
           >
-            {loading ? "Creating..." : "Create Event"}
+            {loading || isUploading ? "Creating..." : "Create Event"}
           </Button>
         </DialogFooter>
       </DialogContent>

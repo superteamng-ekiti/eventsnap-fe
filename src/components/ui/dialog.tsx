@@ -5,6 +5,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { recoletaBlack, recoletaRegular } from "@/app/font"
 
 const Dialog = DialogPrimitive.Root
 
@@ -88,7 +89,8 @@ const DialogTitle = React.forwardRef<
   <DialogPrimitive.Title
     ref={ref}
     className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
+      "text-3xl font-black leading-none tracking-tight",
+      `${recoletaBlack.className}`,
       className
     )}
     {...props}
@@ -102,7 +104,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("text-sm text-muted-foreground", `${recoletaRegular.className}`, className)}
     {...props}
   />
 ))

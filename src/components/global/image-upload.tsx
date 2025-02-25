@@ -87,7 +87,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
   return (
     <div className="w-full">
-      <Card className="border-2 border-dashed">
+      <Card className="border-2 border-dashed border-[#C79800] bg-[#FBC00214]">
         <CardContent className="p-6">
           <div
             onDragOver={handleDragOver}
@@ -96,8 +96,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
             className={`
               flex flex-col items-center justify-center p-6 rounded-lg
               transition-colors duration-200
-              ${isDragging ? "bg-blue-50" : "bg-gray-50"}
-              ${files.length === 0 ? "min-h-[200px]" : ""}
+              ${isDragging ? "bg-[#FBC00214]" : "bg-transparent"}
+              ${files.length === 0 ? "min-h-[100px]" : ""}
             `}
           >
             {files.length === 0 ? (
