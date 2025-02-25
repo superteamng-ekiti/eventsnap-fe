@@ -35,8 +35,8 @@ export const api = {
   get: <T>(url: string) =>
     axiosInstance.get<T>(url).then((response) => response.data),
 
-  post: <T>(url: string, data: any) =>
-    axiosInstance.post<T>(url, data).then((response) => response.data),
+  post: <T>(url: string, data: any, config?: any) =>
+    axiosInstance.post<T>(url, data, config).then((response) => response.data),
 
   put: <T>(url: string, data: any) =>
     axiosInstance.put<T>(url, data).then((response) => response.data),

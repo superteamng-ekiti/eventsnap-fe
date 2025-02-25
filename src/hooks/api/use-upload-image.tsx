@@ -1,34 +1,52 @@
-import { useState } from "react"
-import { api } from "@/lib/axios"
+import { useState } from "react";
+import { api } from "@/lib/axios";
 
 interface UploadImageResponse {
-  data: {
-    url: string
-    // Add other response fields as needed
-  }[]
+  response: {
+    file_hash: string;
+    file_id: string;
+  }[];
 }
 
 export function useUploadImage() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   const uploadImage = async (files: File[]) => {
-    try {
-      setIsLoading(true)
-      setError(null)
-      
-      const formData = new FormData()
-      files.forEach(file => formData.append('files', file))
-      
-      const { data } = await api.post<UploadImageResponse>("/upload-image", formData)
-      return data
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to upload image'))
-      throw err
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    if (!files.length) throw new Error("No files provided");
 
-  return { uploadImage, isLoading, error }
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const formData = new FormData();
+      files.forEach((file) => {
+        if (!file.type.startsWith("image/"))
+          throw new Error(`File ${file.name} is not an image`);
+        formData.append("image", file, file.name);
+      });
+
+      // Make sure to set the correct headers
+      const { response } = await api.post<UploadImageResponse>(
+        "/upload-image",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return response;
+    } catch (err) {
+      setError(
+        err instanceof Error ? err : new Error("Failed to upload image")
+      );
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { uploadImage, isLoading, error };
 }

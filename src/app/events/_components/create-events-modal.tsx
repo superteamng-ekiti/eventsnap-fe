@@ -24,10 +24,6 @@ export const CreateEventsModal = () => {
 
   const { uploadImage: mutateUploadImage, isLoading: isUploading } = useUploadImage();
 
-  const uploadImage = async (file: File) => {
-    mutateUploadImage([file])
-  };
-
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -39,9 +35,7 @@ export const CreateEventsModal = () => {
 
     const image = files[0];
 
-    console.log("image", image);
-
-    const imageIpfsUrl = await uploadImage(image);
+    const imageIpfsUrl = await mutateUploadImage([image]);
 
     console.log(imageIpfsUrl);
 

@@ -4,9 +4,6 @@ import {
   SolanaAdapter
 } from "@reown/appkit-adapter-solana/react";
 import {
-  solanaDevnet,
-  solana,
-  solanaTestnet,
   defineChain
 } from "@reown/appkit/networks";
 import { createAppKit } from "@reown/appkit/react";
