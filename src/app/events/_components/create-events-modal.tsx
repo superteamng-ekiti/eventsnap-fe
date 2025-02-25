@@ -25,14 +25,6 @@ export const CreateEventsModal = () => {
   const { uploadImage: mutateUploadImage, isLoading: isUploading } = useUploadImage();
 
   const uploadImage = async (file: File) => {
-    // const formData = new FormData()
-    // formData.append("image", file, file.name)
-    
-    // console.log('FormData contents:')
-    // for (const pair of formData.entries()) {
-    //   console.log(pair[0], pair[1])
-    // }
-
     mutateUploadImage([file])
   };
 
