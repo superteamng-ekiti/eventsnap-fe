@@ -11,7 +11,6 @@ import {
 import Image from "next/image";
 import React from "react";
 import { QRCodeGenerator } from "./qr-code-generator";
-import { toast } from "sonner";
 import { recoletaBlack } from "@/app/font";
 
 export function ShareInviteLink() {

@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Download, Share2, Trash } from "lucide-react";
+import { recoletaBold } from "@/app/font";
 
 interface GalleryImage {
   src: string;
@@ -42,89 +43,164 @@ export const EventImageGallery = () => {
     window.open(twitterUrl, "_blank");
   };
 
-  // For the layout:
-  // - Left Column: galleryImages[0]
-  // - Middle Column: galleryImages[1] and galleryImages[2] (stacked vertically)
-  // - Right Column: galleryImages[3]
+  // Destructure images for easier use
   const img1 = galleryImages[0];
   const img2 = galleryImages[1];
   const img3 = galleryImages[2];
   const img4 = galleryImages[3];
 
   return (
-    <div className='w-full h-[180px] relative rounded-xl overflow-hidden'>
-        <Image src="/images/event-header-image.jpg" alt="event header image" fill className='object-cover' />
+    <div className="w-full">
+      {/* Event Header Section */}
+      <div className="relative h-[180px] rounded-xl overflow-hidden">
+        <Image
+          src="/images/event-header-image.jpg"
+          alt="event header image"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute top-0 left-0 w-full h-full bg-black/25" />
+        <div className="absolute bottom-4 left-10">
+          <h3 className={`text-white text-2xl ${recoletaBold.className}`}>
+            Youth Hangout
+          </h3>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/images/location-white.svg"
+              alt="location"
+              width={24}
+              height={24}
+            />
+            <p className="text-[#B1B1B1] text-sm">Lagos, Nigeria</p>
+          </div>
+        </div>
+      </div>
 
-        <div className='absolute top-0 left-0 w-full h-full bg-black/25' />
+      {/* Gallery Images Section */}
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        {/* Left Column: Gallery Image 1 */}
+        {img1 && (
+          <div className="relative h-48 rounded-xl overflow-hidden group">
+            <Image
+              src={img1.src}
+              alt={img1.alt}
+              fill
+              style={{ objectFit: "cover" }}
+            />
+            <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button
+                onClick={() => downloadImage(img1.src)}
+                className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
+              >
+                <Download size={16} />
+              </button>
+              <button
+                onClick={() => shareImage(img1.src)}
+                className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
+              >
+                <Share2 size={16} />
+              </button>
+              <button
+                onClick={() => deleteImage(img1.alt)}
+                className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
+              >
+                <Trash size={16} />
+              </button>
+            </div>
+          </div>
+        )}
 
-        <div className='absolute top-0 left-0 w-full h-full flex items-end justify-between px-10 pb-4'>
-            <div className='flex flex-col gap-0'>
-                <h3 className={`text-white text-2xl ${recoletaBold.className}`}>Youth Hangout</h3>
-                <div className='flex items-center gap-2'>
-                    <Image src="/images/location-white.svg" alt="location" width={24} height={24} />
-                    <p className='text-[#B1B1B1] text-sm'>Lagos, Nigeria</p>
-                </div>
+        {/* Middle Column: Gallery Images 2 (top) and 3 (bottom) */}
+        <div className="flex flex-col gap-2">
+          {img2 && (
+            <div className="relative h-24 rounded-xl overflow-hidden group">
+              <Image
+                src={img2.src}
+                alt={img2.alt}
+                fill
+                style={{ objectFit: "cover" }}
+              />
+              <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button
+                  onClick={() => downloadImage(img2.src)}
+                  className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
+                >
+                  <Download size={16} />
+                </button>
+                <button
+                  onClick={() => shareImage(img2.src)}
+                  className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
+                >
+                  <Share2 size={16} />
+                </button>
+                <button
+                  onClick={() => deleteImage(img2.alt)}
+                  className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
+                >
+                  <Trash size={16} />
+                </button>
+              </div>
             </div>
           )}
           {img3 && (
-            <div className="relative h-[150px] rounded-xl overflow-hidden group">
+            <div className="relative h-24 rounded-xl overflow-hidden group">
               <Image
                 src={img3.src}
                 alt={img3.alt}
                 fill
                 style={{ objectFit: "cover" }}
               />
-              <div className="absolute top-2 right-2 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <button
                   onClick={() => downloadImage(img3.src)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <Download size={10} />
+                  <Download size={16} />
                 </button>
                 <button
                   onClick={() => shareImage(img3.src)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <Share2 size={10} />
+                  <Share2 size={16} />
                 </button>
                 <button
                   onClick={() => deleteImage(img3.alt)}
                   className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
                 >
-                  <Trash size={10} />
+                  <Trash size={16} />
                 </button>
               </div>
             </div>
           )}
         </div>
 
-        {/* Right Column: Image 4 */}
+        {/* Right Column: Gallery Image 4 */}
         {img4 && (
-          <div className="relative h-[300px] rounded-xl overflow-hidden group">
+          <div className="relative h-48 rounded-xl overflow-hidden group">
             <Image
               src={img4.src}
               alt={img4.alt}
               fill
               style={{ objectFit: "cover" }}
             />
-            <div className="absolute top-2 right-2 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <button
                 onClick={() => downloadImage(img4.src)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <Download size={10} />
+                <Download size={16} />
               </button>
               <button
                 onClick={() => shareImage(img4.src)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <Share2 size={10} />
+                <Share2 size={16} />
               </button>
               <button
                 onClick={() => deleteImage(img4.alt)}
                 className="bg-white p-2 rounded-xl text-black hover:bg-gray-200"
               >
-                <Trash size={10} />
+                <Trash size={16} />
               </button>
             </div>
           </div>
