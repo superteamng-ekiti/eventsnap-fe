@@ -14,13 +14,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUploadImage } from "@/hooks/api/use-upload-image";
+import { useEventSnap } from "@/services/event-program";
 import { Plus } from "lucide-react";
 import React, { useState } from "react";
+
+import { v4 as uuidv4 } from 'uuid';
+
 
 export const CreateEventsModal = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { createEvent } = useEventSnap();
 
   const { uploadImage: mutateUploadImage, isLoading: isUploading } = useUploadImage();
 
@@ -35,9 +41,13 @@ export const CreateEventsModal = () => {
 
     const image = files[0];
 
-    const imageIpfsUrl = await mutateUploadImage([image]);
+    const { file_hash } = await mutateUploadImage([image]);
 
-    console.log(imageIpfsUrl);
+    await createEvent(
+      uuidv4(),
+      name,
+      file_hash
+    )
 
     setLoading(false);
 

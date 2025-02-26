@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/eventsnap.json`.
  */
 export type Eventsnap = {
-  "address": "9B1F56Dx649qbEDRbQAXZtmPXTFrLaYjTXBuCeZWMJ1x",
+  "address": "J9dhGEXi4C9LzSgvBz2T7sAihNU4bYjFngaKme9vSvHo",
   "metadata": {
     "name": "eventsnap",
     "version": "0.1.0",

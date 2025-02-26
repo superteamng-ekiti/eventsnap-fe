@@ -5,7 +5,7 @@ interface UploadImageResponse {
   response: {
     file_hash: string;
     file_id: string;
-  }[];
+  };
 }
 
 export function useUploadImage() {

@@ -17,7 +17,6 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  camera,
 }: Readonly<{
   children: React.ReactNode;
   camera: React.ReactNode;
@@ -25,11 +24,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.className} antialiased bg-[#FDF2EC]`}>
-        <ReownProvider>
-            {camera}
-            <Header />
-            {children}
-        </ReownProvider>
+          <ReownProvider>
+              <Header />
+              {children}
+          </ReownProvider>
         <Toaster richColors />
       </body>
     </html>

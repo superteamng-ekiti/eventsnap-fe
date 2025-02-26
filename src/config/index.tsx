@@ -4,7 +4,8 @@ import {
   SolanaAdapter
 } from "@reown/appkit-adapter-solana/react";
 import {
-  defineChain
+  defineChain,
+  solanaDevnet
 } from "@reown/appkit/networks";
 import { createAppKit } from "@reown/appkit/react";
 import {
@@ -95,7 +96,7 @@ export const metadata = {
 export const createAppKitMethod = () =>
   createAppKit({
     adapters: [solanaWeb3JsAdapter],
-    networks: [sonicSvmTestnet, sonicSvmMainnet],
+    networks: [sonicSvmTestnet, sonicSvmMainnet, solanaDevnet],
     metadata: metadata,
     projectId: projectId,
     features: {
