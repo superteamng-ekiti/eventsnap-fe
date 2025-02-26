@@ -28,7 +28,7 @@ export const EventHeaderImage = () => {
         <Image
           src="/images/event-header-image.jpg"
           alt="event header image"
-          fill
+          fill 
           className="object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-full bg-black/25" />
