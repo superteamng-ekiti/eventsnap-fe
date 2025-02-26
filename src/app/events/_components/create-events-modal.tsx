@@ -70,9 +70,7 @@ export const CreateEventsModal = () => {
   }, []);
 
   async function createEvent(uid: string, name: string, banner: string) {
-    const PROGRAM_ID = new PublicKey(
-      "J9dhGEXi4C9LzSgvBz2T7sAihNU4bYjFngaKme9vSvHo"
-    );
+    const PROGRAM_ID = new PublicKey(idl.address);
     const eventKeypair = Keypair.generate(); // New event account
     const eventAccount = eventKeypair.publicKey;
 
