@@ -6,7 +6,7 @@ const SingleEventPage = () => {
   return (
     <div className="w-full h-full">
       <div className="container mx-auto px-4 2xl:px-0">
-        <div className="flex flex-col items-center justify-between">
+        <div className="flex flex-col justify-between">
           <EventHeaderImage />
           <EventImageGallery />
         </div>

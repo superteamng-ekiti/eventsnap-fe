@@ -1,9 +1,10 @@
-import { recoletaBold } from "@/app/font";
+import { recoletaBold, recoletaMedium } from "@/app/font";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 import { ShareInviteLink } from "./share-invite-link";
-import { ListFilter } from "lucide-react";
+import { ListFilter, ChevronLeft } from "lucide-react";
+import { recoletaBlack } from "@/app/font";
 
 const images = [
   { src: "/images/Ellipse-1.png", alt: "Image 1" },
@@ -15,6 +16,14 @@ export const EventHeaderImage = () => {
   return (
     <>
       {/* Header Image */}
+      <div className='flex gap-3 align-center item-center mb-2'>
+        <div className='p-1 rounded-full bg-[#D9D9D9]'>
+          <ChevronLeft />
+        </div>
+        <div className={`text-3x1 text-center ${recoletaBlack.className} font-bold`}>
+          Youth Hangout
+        </div>
+      </div>
       <div className="w-full h-[180px] relative rounded-xl overflow-hidden">
         <Image
           src="/images/event-header-image.jpg"
@@ -46,11 +55,11 @@ export const EventHeaderImage = () => {
       </div>
 
       {/* Photos Section */}
-      <div className="mt-4 flex xl:gap-[950px] md:gap-[600px] sm:gap-[300px] gap-[150px] justify-between">
+      <div className="mt-4 flex justify-between">
         <div className="mb-2 text-[10px]">
           <span className="font-bold mr-2">51</span>Total Photos uploaded
         </div>
-        <div className="flex items-center mr-3">
+        <div className="flex items-center ">
           {images.map((img) => (
             <div
               key={img.alt}
@@ -64,22 +73,22 @@ export const EventHeaderImage = () => {
               />
             </div>
           ))}
-          <ListFilter className="w-5 h-5" />
+          <ListFilter className="w-5 h-5 ml-4" />
         </div>
       </div>
 
       {/* Retrived side */}
-      <div className="flex xl:gap-[950px] md:gap-[600px] sm:gap-[300px] gap-[150px] justify-between mt-2">
-        <div className={` ${recoletaBold.className}`}>Retrieve Image</div>
-        <div>
+      <div className="flex justify-between mt-2">
+        <div className={` ${recoletaMedium.className}`}>Retrieve Image</div>
+        <div className='gap-3'>
           <label className="inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
               name="checkboxOptions"
               className="form-checkbox text-blue-600"
             />
-            <span>Select all</span>
           </label>
+          <span className='ml-2'>Select all</span>
         </div>
       </div>
     </>
