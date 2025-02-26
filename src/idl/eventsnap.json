@@ -1,0 +1,404 @@
+{
+  "address": "J9dhGEXi4C9LzSgvBz2T7sAihNU4bYjFngaKme9vSvHo",
+  "metadata": {
+    "name": "eventsnap",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "create_event",
+      "discriminator": [49, 219, 29, 203, 22, 98, 100, 87],
+      "accounts": [
+        {
+          "name": "event",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "program_data",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "uid",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "banner",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "delete_event",
+      "discriminator": [103, 111, 95, 106, 232, 24, 190, 84],
+      "accounts": [
+        {
+          "name": "event",
+          "writable": true
+        },
+        {
+          "name": "program_data",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "delete_image",
+      "discriminator": [196, 158, 176, 208, 221, 127, 46, 248],
+      "accounts": [
+        {
+          "name": "user_data",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "image_index",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "get_all_events",
+      "discriminator": [224, 53, 176, 39, 120, 138, 187, 18],
+      "accounts": [
+        {
+          "name": "program_data",
+          "writable": true
+        },
+        {
+          "name": "event",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [],
+      "returns": {
+        "vec": {
+          "defined": {
+            "name": "Event"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_user_images_by_event",
+      "discriminator": [40, 42, 253, 150, 210, 137, 54, 157],
+      "accounts": [
+        {
+          "name": "user_data",
+          "writable": true
+        },
+        {
+          "name": "event",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [],
+      "returns": {
+        "vec": {
+          "defined": {
+            "name": "UploadedImage"
+          }
+        }
+      }
+    },
+    {
+      "name": "initialize",
+      "discriminator": [175, 175, 109, 31, 13, 152, 155, 237],
+      "accounts": [
+        {
+          "name": "program_data",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "oracle",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "join_event",
+      "discriminator": [10, 93, 234, 137, 237, 194, 224, 0],
+      "accounts": [
+        {
+          "name": "event",
+          "writable": true
+        },
+        {
+          "name": "user_data",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "upload_image_with_tag",
+      "discriminator": [250, 85, 172, 120, 239, 134, 184, 93],
+      "accounts": [
+        {
+          "name": "event",
+          "writable": true
+        },
+        {
+          "name": "user_data",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "name": "tag",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Event",
+      "discriminator": [125, 192, 125, 158, 9, 115, 152, 233]
+    },
+    {
+      "name": "ProgramData",
+      "discriminator": [211, 243, 91, 186, 23, 190, 190, 4]
+    },
+    {
+      "name": "UserData",
+      "discriminator": [139, 248, 167, 203, 253, 220, 210, 221]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "UidTooLong",
+      "msg": "Event UID must be 32 characters or less"
+    },
+    {
+      "code": 6001,
+      "name": "NameTooLong",
+      "msg": "Event name must be 50 characters or less"
+    },
+    {
+      "code": 6002,
+      "name": "UrlTooLong",
+      "msg": "URL must be 200 characters or less"
+    },
+    {
+      "code": 6003,
+      "name": "TagTooLong",
+      "msg": "Tag must be 50 characters or less"
+    },
+    {
+      "code": 6004,
+      "name": "AlreadyJoined",
+      "msg": "User has already joined this event"
+    },
+    {
+      "code": 6005,
+      "name": "NotJoined",
+      "msg": "User must join event before uploading images"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidImageIndex",
+      "msg": "Invalid image index"
+    },
+    {
+      "code": 6007,
+      "name": "UnauthorizedDeletion",
+      "msg": "Only event owner can delete the event"
+    },
+    {
+      "code": 6008,
+      "name": "EventCountOverflow",
+      "msg": "Event count overflow"
+    },
+    {
+      "code": 6009,
+      "name": "EventCountUnderflow",
+      "msg": "Event count underflow"
+    },
+    {
+      "code": 6010,
+      "name": "MaxAttendeesReached",
+      "msg": "Maximum number of attendees reached"
+    },
+    {
+      "code": 6011,
+      "name": "MaxImagesReached",
+      "msg": "Maximum number of images reached"
+    }
+  ],
+  "types": [
+    {
+      "name": "Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "uid",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "banner",
+            "type": "string"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "attendees",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "highlight_images",
+            "type": {
+              "vec": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProgramData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle",
+            "type": "pubkey"
+          },
+          {
+            "name": "event_count",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UploadedImage",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "name": "tag",
+            "type": "string"
+          },
+          {
+            "name": "uploader",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "uploader_selfie",
+            "type": "string"
+          },
+          {
+            "name": "is_joined",
+            "type": "bool"
+          },
+          {
+            "name": "images",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "UploadedImage"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

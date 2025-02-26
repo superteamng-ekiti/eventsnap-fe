@@ -9,32 +9,125 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUploadImage } from "@/hooks/api/use-upload-image";
 import { Plus } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import {
+  SystemProgram,
+  PublicKey,
+  Keypair,
+  Transaction,
+  TransactionInstruction,
+  Signer,
+  LAMPORTS_PER_SOL
+} from "@solana/web3.js";
+
+import {
+  useAppKit,
+  useAppKitAccount,
+  useAppKitProvider
+} from "@reown/appkit/react";
+import {
+  useAppKitConnection,
+  type Provider
+} from "@reown/appkit-adapter-solana/react";
+import { Buffer } from "buffer";
+import idl from "../../../idl/eventsnap.json";
 
 export const CreateEventsModal = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { uploadImage: mutateUploadImage, isLoading: isUploading } = useUploadImage();
+  const { uploadImage: mutateUploadImage, isLoading: isUploading } =
+    useUploadImage();
+
+  const { open } = useAppKit();
+
+  const { address } = useAppKitAccount();
+  const { connection } = useAppKitConnection();
+  const { walletProvider } = useAppKitProvider<Provider>("solana");
 
   const uploadImage = async (file: File) => {
     // const formData = new FormData()
     // formData.append("image", file, file.name)
-    
+
     // console.log('FormData contents:')
     // for (const pair of formData.entries()) {
     //   console.log(pair[0], pair[1])
     // }
 
-    mutateUploadImage([file])
+    mutateUploadImage([file]);
   };
+
+  useEffect(() => {
+    open();
+  }, []);
+
+  async function createEvent(uid: string, name: string, banner: string) {
+    const PROGRAM_ID = new PublicKey(
+      "J9dhGEXi4C9LzSgvBz2T7sAihNU4bYjFngaKme9vSvHo"
+    );
+    const eventKeypair = Keypair.generate(); // New event account
+    const eventAccount = eventKeypair.publicKey;
+
+    if (!address || !connection) return;
+    if (!walletProvider || !walletProvider.publicKey) {
+      throw new Error("Wallet not connected");
+    }
+
+    console.log(`✅ Wallet connected`);
+
+    // Create Event Instruction
+    const createEventIx = new TransactionInstruction({
+      programId: PROGRAM_ID,
+      keys: [
+        { pubkey: eventAccount, isSigner: true, isWritable: true },
+        { pubkey: new PublicKey(address), isSigner: true, isWritable: true },
+        { pubkey: SystemProgram.programId, isSigner: false, isWritable: false }
+      ],
+      data: Buffer.from(
+        Uint8Array.of(...new TextEncoder().encode(uid + name + banner))
+      )
+    });
+
+    console.log(`✅ Created instruction`);
+
+    // Create and sign transaction
+    const tx = new Transaction().add(createEventIx);
+    tx.feePayer = walletProvider.publicKey;
+    tx.recentBlockhash = (
+      await connection.getLatestBlockhash("confirmed")
+    ).blockhash;
+
+    console.log(`✅ Fetched latest blockhash`);
+
+    // ✅ Sign transaction manually with both the wallet and eventKeypair
+    tx.partialSign(eventKeypair);
+    const signedTx = await walletProvider.signTransaction(tx);
+
+    console.log(`✅ Transaction signed`);
+
+    // ✅ Send the transaction
+    try {
+      const signature = await connection.sendRawTransaction(
+        signedTx.serialize(),
+        {
+          skipPreflight: false,
+          preflightCommitment: "confirmed"
+        }
+      );
+
+      console.log(`✅ Event ${name} created! Tx Signature: ${signature}`);
+    } catch (error) {
+      console.error("❌ Transaction failed:", error);
+    }
+  }
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -49,13 +142,25 @@ export const CreateEventsModal = () => {
 
     console.log("image", image);
 
-    const imageIpfsUrl = await uploadImage(image);
+    // const imageIpfsUrl = await uploadImage(image);
 
-    console.log(imageIpfsUrl);
+    // console.log(imageIpfsUrl);
 
     setLoading(false);
+    console.log("calling smart contract");
 
     // TODO: CALL THE CREATE EVENTS FUNCTION
+    try {
+      const finishedEvent = await createEvent(
+        "hello",
+        "Summer event",
+        "link to banner"
+      );
+      console.log("eventt submitted success", finishedEvent);
+    } catch (error: any) {
+      console.log("error occured: ", error.toString());
+    }
+
     // TODO: CLOSE THE MODAL
     // TODO: REFRESH THE EVENTS LIST
   };

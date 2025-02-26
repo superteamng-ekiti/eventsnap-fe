@@ -98,7 +98,7 @@ export const metadata = {
 export const createAppKitMethod = () =>
   createAppKit({
     adapters: [solanaWeb3JsAdapter],
-    networks: [sonicSvmTestnet, sonicSvmMainnet],
+    networks: [solanaDevnet, sonicSvmTestnet, sonicSvmMainnet],
     metadata: metadata,
     projectId: projectId,
     features: {
